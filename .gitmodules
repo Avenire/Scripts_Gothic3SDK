@@ -1,0 +1,3 @@
+[submodule "gothic3sdk"]
+	path = gothic3sdk
+	url = https://github.com/georgeto/gothic3sdk

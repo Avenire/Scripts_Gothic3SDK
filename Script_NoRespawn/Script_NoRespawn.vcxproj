@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{68008980-7A7F-4D91-87FC-05045C52240E}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Script_MaxXPRunHelper</RootNamespace>
+    <ProjectName>Script_NoRespawn</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <Import Project="$(SolutionDir)\gothic3sdk\source\GothicScripts.props" />
+  <Import Project="$(SolutionDir)\gothic3sdk\source\Shared\Asmjit\Asmjit.props" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\bin\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)\build\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(SolutionDir)\gothic3sdk\source\Shared;$(SourceDirGothicScripts);$(SourceDirGothicScripts)..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>kernel32.lib;$(ExternalLibs);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(SolutionDir)\gothic3sdk\source\Shared;$(SourceDirGothicScripts);$(SourceDirGothicScripts)..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>kernel32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\gothic3sdk\source\Shared\util\AsmjitUtil.cpp" />
+    <ClCompile Include="..\gothic3sdk\source\Shared\util\Debug.cpp" />
+    <ClCompile Include="..\gothic3sdk\source\Shared\util\Hook.cpp" />
+    <ClCompile Include="..\gothic3sdk\source\Shared\util\Logging.cpp" />
+    <ClCompile Include="..\gothic3sdk\source\Shared\util\Memory.cpp" />
+    <ClCompile Include="..\gothic3sdk\source\Shared\util\Util.cpp" />
+    <ClCompile Include="Script_NoRespawn.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Script_NoRespawn.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\gothic3sdk\source\Engine.vcxproj">
+      <Project>{f385328b-69b2-4e58-b520-9562efd53ad8}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\gothic3sdk\source\Game.vcxproj">
+      <Project>{f74f8efb-8610-40f4-bfec-03fb5d4190d7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\gothic3sdk\source\GFC.vcxproj">
+      <Project>{84e2573c-0d33-417f-a740-b42636728abc}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\gothic3sdk\source\Script.vcxproj">
+      <Project>{df45b4ac-7fd2-4c19-9e70-6ee4dc96b604}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\gothic3sdk\source\SharedBase.vcxproj">
+      <Project>{7823c28a-70f8-484e-a6dc-ccefebc34c03}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\gothic3sdk\source\Shared\Asmjit\Asmjit.vcxproj">
+      <Project>{32a1be07-45f2-4b54-9cf0-992dffc8d06a}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
