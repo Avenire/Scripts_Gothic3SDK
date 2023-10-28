@@ -1,25 +1,24 @@
-Repo intended for various, small Gothic 3 abomination mods of my own creation. All of them came into existence thanks to Georgeto's Gothic 3 SDK.
+# Scripts
+## Script_NoRespawn
+Disables respawning of monsters (or to be more precise - deletes monsters the exact moment they are resurrected by game's "Respawn" script).
+
+## Script_DeathAlerts
+Flashes a text notification if player is robbed of XP i.e. when wolf kills a scavenger.
+
+# How to Use
+Move the .dll into `<Gothic 3 Install Dir>\scripts` and hope it doesn't conflict with any other mods/scripts you have installed. 
+### Note
+I briefly tested this only with Community Patch (v1.75.14), CP Update Pack v1.04.11 and Parallel Universe Patch (v1.0.4). 
+No other mods were installed. Yes, I'm one of a few who actually like their Gothic vanilla.
 
 # Building
-- Get Visual Studio Express 2013 for Windows Desktop (toolset v120)
-- Gothic 3 SDK is added via git submodules so remember to update them if not cloned with `--recurse-submodules --remote-submodules` flags
+- Get "Visual Studio Express 2013 for Windows Desktop" (toolset v120)
+- Gothic 3 SDK dependency is added via git submodules, remember to clone this repo with `--recurse-submodules --remote-submodules` flags or run the below:
 ```
 git submodule init 
 git submodule update
 ```
-
-# How to Use
-Move the .dll into `<Gothic 3 Install Dir>\scripts` and hope it doesn't conflict with any other mods/scripts you have installed. 
-
-# Scripts
-## Script_NoRespawn
-- Deletes any NPCs after they respawned (or were moved to the dead NPC "graveyard") so you can enjoy destroying all living creatures of Myrtana without wondering about all respawned strugglers hiding in the distant map corners :)
-- Alleviates the XP-FOMO of XP-maximizing maniacs. Game will display a notification if Hero has just lost any experience points due to NPC killing each other. Now you know immediately if you **must** reload the game.
-
-Noote: I have briefly tested it with latest Community Patch v1.75.14, CP Update Pack v1.04.11 and Parallel Universe Patch v1.0.4.
-### todos
-- Allow configuring whether notification should be played/extract as separate script?
-- ...
+- If having a problem with VS Express fussing about "trial ended" go see: https://stackoverflow.com/a/30014257
 
 # Dependencies
 - Gothic 3 SDK by Georgeto https://github.com/georgeto/gothic3sdk

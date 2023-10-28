@@ -19,7 +19,7 @@
     <ClCompile Include="..\gothic3sdk\source\Shared\util\Util.cpp">
       <Filter>util</Filter>
     </ClCompile>
-    <ClCompile Include="Script_NoRespawn.cpp" />
+    <ClCompile Include="Script_DeathAlerts.cpp" />
     <ClCompile Include="..\shared\shared.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -28,6 +28,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Script_NoRespawn.h" />
+    <ClInclude Include="Script_DeathAlerts.h" />
   </ItemGroup>
 </Project>
