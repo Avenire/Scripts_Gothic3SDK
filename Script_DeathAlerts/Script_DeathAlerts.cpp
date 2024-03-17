@@ -3,6 +3,7 @@
 #include "util/Logging.h"
 #include "util/Hook.h"
 #include "util/ScriptUtil.h"
+#include "util/Util.h"
 #include "../shared/shared.h"
 #include "Script.h"
 
@@ -32,20 +33,19 @@ GEBool GE_STDCALL IsInSamePartyAsPlayer(Entity& npc) {
 GEInt GE_STDCALL KillHook(gFScript const a_orignalFunc, gCScriptProcessingUnit* a_pSPU, GELPVoid a_pSelfEntity, GELPVoid a_pOtherEntity, GEInt a_iArgs)
 {
 	INIT_SCRIPT();
-	auto& victimRoutinePropSet = OtherEntity.Routine;
-	auto& victimNPCPropSet = OtherEntity.NPC;
-	auto& victimEnclavePropSet = OtherEntity.Enclave;
-	// We must save the value before  calling the original "Kill" script.
-	// Game sets this flag as true no matter the actual killer.
-	auto wasDefeatedByPlayer = victimNPCPropSet.DefeatedByPlayer;
-
-	GEInt Result = a_orignalFunc(a_pSPU, a_pSelfEntity, a_pOtherEntity, a_iArgs);
-
-	auto player = Entity::GetPlayer();
+	auto& player = Entity::GetPlayer();
+	auto experiencePoints = player.PlayerMemory.XP;
+	auto aiMode = OtherEntity.Routine.AIMode;
+	auto enclaveStatus = OtherEntity.Enclave.Status;
+	auto wasDefeatedByPlayer = OtherEntity.NPC.DefeatedByPlayer;
+	auto species = OtherEntity.NPC.Species;
+`	GEInt Result = a_orignalFunc(a_pSPU, a_pSelfEntity, a_pOtherEntity, a_iArgs);
 	// "Invalid" SelfEntity AKA the killer is set when NPC dies as a result of "kill" cheat, drowning, fall damage.
 	// Could be there're more edge cases but this worked good enough so far.
 	auto killerValid = SelfEntity.GetInstance() && SelfEntity.GetInstance()->IsValid();
-	
+	// We must save the value before  calling the original "Kill" script.
+	// Game sets this flag as true no matter the actual killer.
+	auto experienceNow = player.PlayerMemory.XP;
 	auto ripXP = !(
 		// Listing all cases I could think of where player gets XP.
 		// Case "Kill" script returns false.
@@ -64,10 +64,12 @@ GEInt GE_STDCALL KillHook(gFScript const a_orignalFunc, gCScriptProcessingUnit* 
 		)) ||
 		// Fleeing human/orc, killer is not "valid" NPC and enclave's (city, camp etc) status is also "flee".
 		// This means NPC got killed by the engine once they ran out of processing range.
-		!killerValid &&
-		victimRoutinePropSet.AIMode == ::gEAIMode_Flee &&
-		victimEnclavePropSet.Status == ::gEEnclaveStatus_Flee &&
-		(victimNPCPropSet.Species == gESpecies::gESpecies_Human || victimNPCPropSet.Species == gESpecies::gESpecies_Orc)
+		(
+			!killerValid &&
+			(species == gESpecies::gESpecies_Human || species == gESpecies::gESpecies_Orc) &&
+			OtherEntity.NPC.GetEnclave().Enclave.Status == ::gEEnclaveStatus_Flee &&
+			experienceNow != experiencePoints
+		)
 	);
 	if (ripXP) {
 		// Using Unicode ⚔/⚡ because I can't be bothered to get properly localized messages.
