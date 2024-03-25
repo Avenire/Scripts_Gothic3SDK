@@ -13,18 +13,13 @@ gSScriptInit & GetScriptInit()
 }
 
 // TODO: Add an option to allow monster respawn but without them giving XP/Loot?
-// TODO: Add an optional notification if this happens?
 GEInt GE_STDCALL RespawnHook(gFScript const a_orignalFunc, gCScriptProcessingUnit* a_pSPU, GELPVoid a_pSelfEntity, GELPVoid a_pOtherEntity, GEInt a_iArgs)
 {
 	INIT_SCRIPT();
 	// Call the original "Respawn" script. It does more than just "respawning" i.e. it also makes sure bodies of
 	// NPCs holding quest items don't get deleted from the game.
-	GEInt Result = a_orignalFunc(a_pSPU, a_pSelfEntity, a_pOtherEntity, a_iArgs);
-	if (Result 
-		// Not sure what that was for so commenting out for now.
-		// || (SelfEntity.NPC.Species == gESpecies::gESpecies_EMPTY_B && SelfEntity.Routine.AIMode == gEAIMode::gEAIMode_Dead)
-	) {
-		// Note: Not to be confused with "Kill" script.
+	if (a_orignalFunc(a_pSPU, a_pSelfEntity, a_pOtherEntity, a_iArgs)) {
+		// Note: Not to be confused with "Kill" console command or script.
 		// This seems to be permanently deleting Entity from the game's world.
 		SelfEntity.Kill();
 	}

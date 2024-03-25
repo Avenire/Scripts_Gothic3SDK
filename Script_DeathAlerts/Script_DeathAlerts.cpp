@@ -28,24 +28,31 @@ GEBool GE_STDCALL IsInSamePartyAsPlayer(Entity& npc) {
 	return false;
 }
 
+GEBool GE_STDCALL IsEntityPickpocketableAndWasNotPickpocketedYet(Entity& npc) {
+	if (!npc.Dialog.IsValid()) { return false; }
+	if (npc.Dialog.PickedPocket) { return false; }
+	auto pickpocketTreasureSet = GetTreasureSet(npc.Inventory, gETreasureDistribution::gETreasureDistribution_Pickpocket);
+	return pickpocketTreasureSet != None;
+}
+
 
 // TODO: play an optional visual effect over the body until it was looted/looked at/went out of processing range or sth?
 GEInt GE_STDCALL KillHook(gFScript const a_orignalFunc, gCScriptProcessingUnit* a_pSPU, GELPVoid a_pSelfEntity, GELPVoid a_pOtherEntity, GEInt a_iArgs)
 {
 	INIT_SCRIPT();
 	auto& player = Entity::GetPlayer();
-	auto experiencePoints = player.PlayerMemory.XP;
+	auto experienceBeforeKill = player.PlayerMemory.XP;
 	auto aiMode = OtherEntity.Routine.AIMode;
 	auto enclaveStatus = OtherEntity.Enclave.Status;
 	auto wasDefeatedByPlayer = OtherEntity.NPC.DefeatedByPlayer;
 	auto species = OtherEntity.NPC.Species;
-`	GEInt Result = a_orignalFunc(a_pSPU, a_pSelfEntity, a_pOtherEntity, a_iArgs);
+	GEInt Result = a_orignalFunc(a_pSPU, a_pSelfEntity, a_pOtherEntity, a_iArgs);
 	// "Invalid" SelfEntity AKA the killer is set when NPC dies as a result of "kill" cheat, drowning, fall damage.
 	// Could be there're more edge cases but this worked good enough so far.
 	auto killerValid = SelfEntity.GetInstance() && SelfEntity.GetInstance()->IsValid();
 	// We must save the value before  calling the original "Kill" script.
 	// Game sets this flag as true no matter the actual killer.
-	auto experienceNow = player.PlayerMemory.XP;
+	auto experienceAfterKill = player.PlayerMemory.XP;
 	auto ripXP = !(
 		// Listing all cases I could think of where player gets XP.
 		// Case "Kill" script returns false.
@@ -68,9 +75,16 @@ GEInt GE_STDCALL KillHook(gFScript const a_orignalFunc, gCScriptProcessingUnit* 
 			!killerValid &&
 			(species == gESpecies::gESpecies_Human || species == gESpecies::gESpecies_Orc) &&
 			OtherEntity.NPC.GetEnclave().Enclave.Status == ::gEEnclaveStatus_Flee &&
-			experienceNow != experiencePoints
+			experienceBeforeKill != experienceAfterKill
 		)
 	);
+	// todo: actual stringtable because "💎🤏 <name>" doesn't read as "failed to pickpocket" very obviously
+	if (IsEntityPickpocketableAndWasNotPickpocketedYet(OtherEntity)) {
+		gCSession::GetSession().GetGUIManager()->PrintGameMessage(
+			bCUnicodeString::GetFormattedString(L"💎🤏 %s", OtherEntity.GetFocusName()), 
+			gEGameMessageType::gEGameMessageType_Failure
+		);
+	}
 	if (ripXP) {
 		// Using Unicode ⚔/⚡ because I can't be bothered to get properly localized messages.
 		auto killerName = killerValid ? 

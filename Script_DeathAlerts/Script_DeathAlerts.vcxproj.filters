@@ -21,6 +21,9 @@
     </ClCompile>
     <ClCompile Include="Script_DeathAlerts.cpp" />
     <ClCompile Include="..\shared\shared.cpp" />
+    <ClCompile Include="..\gothic3sdk\source\Shared\util\ScriptUtil.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="util">

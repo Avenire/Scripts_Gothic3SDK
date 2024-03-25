@@ -76,6 +76,7 @@
     <ClCompile Include="..\gothic3sdk\source\Shared\util\Hook.cpp" />
     <ClCompile Include="..\gothic3sdk\source\Shared\util\Logging.cpp" />
     <ClCompile Include="..\gothic3sdk\source\Shared\util\Memory.cpp" />
+    <ClCompile Include="..\gothic3sdk\source\Shared\util\ScriptUtil.cpp" />
     <ClCompile Include="..\gothic3sdk\source\Shared\util\Util.cpp" />
     <ClCompile Include="..\shared\shared.cpp" />
     <ClCompile Include="Script_DeathAlerts.cpp" />
