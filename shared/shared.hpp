@@ -1,19 +1,26 @@
-#ifndef SCRIPTS_GOTHIC3SDK_SHARED
-#define SCRIPTS_GOTHIC3SDK_SHARED
+#ifndef SCRIPTS_GOTHIC3SDK_SHARED_INCLUDED_
+#define SCRIPTS_GOTHIC3SDK_SHARED_INCLUDED_
 
+template<typename ReturnType, typename... ArgTypes>
+using function_pointer = ReturnType (*const)(ArgTypes...);
 
-#include "util\Hook.h"
+// Apparently variadic template alias using a variadic template alias f*ckery
+// causes fatal error C1063: compiler limit : compiler stack overflow when tried to build this
+// on another machine with a fresh installed VS 2013.
+// using wrapper_function_pointer = function_pointer<ReturnType, function_pointer<ReturnType, ArgTypes...>, ArgTypes...>;
+// or even
+// using wrapper_function_pointer = function_pointer<ReturnType, ReturnType (*const)(ArgTypes...), ArgTypes...>;
+// ...but the below does not. Whatever, wouldn't use it in any prod code anyway, was just messing around to see what's possible.
+template<typename ReturnType, typename... ArgTypes>
+using wrapper_function_pointer = ReturnType (*const)(function_pointer<ReturnType, ArgTypes...>, ArgTypes...);
 
 GELPVoid GE_STDCALL Call_mCBaseHook_GetOriginalFunction_GELPVOID(mCBaseHook* const hook);
 
 template<typename ReturnType, typename... ArgTypes>
-using function_pointer = ReturnType(*const) (ArgTypes...);
-
-template<typename ReturnType, typename... ArgTypes>
 mCBaseHook* Hook(
-	function_pointer<ReturnType, ArgTypes...> a_pOriginalFunc,
-	function_pointer<ReturnType, function_pointer<ReturnType, ArgTypes...>, ArgTypes...> a_pWrapperFunc
-	) {
+	function_pointer<ReturnType, ArgTypes...> a_pOriginalFunc, 
+	wrapper_function_pointer<ReturnType, ArgTypes...> a_pWrapperFunc
+) {
 	using namespace asmjit;
 	using namespace asmjit::x86;
 	auto hook = GE_NEW(mCFunctionHook);

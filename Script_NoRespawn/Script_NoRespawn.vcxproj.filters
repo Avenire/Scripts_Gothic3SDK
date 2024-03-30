@@ -29,5 +29,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Script_NoRespawn.h" />
+    <ClInclude Include="..\shared\shared.hpp" />
   </ItemGroup>
 </Project>

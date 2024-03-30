@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2013 for Windows Desktop
-VisualStudioVersion = 12.0.40629.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Asmjit", "gothic3sdk\source\Shared\Asmjit\Asmjit.vcxproj", "{32A1BE07-45F2-4B54-9CF0-992DFFC8D06A}"
 EndProject
@@ -24,10 +24,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Script_NoRespawn", "Script_NoRespawn\Script_NoRespawn.vcxproj", "{68008980-7A7F-4D91-87FC-05045C52240E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{73FB5BBE-7851-4DF7-B884-420F13863183}"
-	ProjectSection(SolutionItems) = preProject
-		shared.cpp = shared.cpp
-		shared.h = shared.h
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Script_DeathAlerts", "Script_DeathAlerts\Script_DeathAlerts.vcxproj", "{006F7F38-E91D-4A00-B940-E882B51B69ED}"
 EndProject

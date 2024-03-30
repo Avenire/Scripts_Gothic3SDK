@@ -81,6 +81,7 @@
     <ClCompile Include="Script_NoRespawn.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\shared\shared.hpp" />
     <ClInclude Include="Script_NoRespawn.h" />
   </ItemGroup>
   <ItemGroup>

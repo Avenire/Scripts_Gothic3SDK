@@ -19,7 +19,17 @@ git submodule init
 git submodule update
 ```
 - If having a problem with VS Express fussing about "trial ended" go see: https://stackoverflow.com/a/30014257
-
+# Make a new project as a copy of existing script
+Using git bash on Windows
+```
+read -p "Provide a new project name: " PROJECTNAME
+export PROJECTNAME
+cp -r Script_DeathAlerts "Script_$PROJECTNAME" && \
+grep -rl DeathAlerts "./Script_$PROJECTNAME/" | xargs sed -i "s/DeathAlerts/$PROJECTNAME/g" && \
+grep -rl DEATHALERTS "./Script_$PROJECTNAME/" | xargs sed -i "s/DEATHALERTS/${PROJECTNAME^^}/g" && \
+find "./Script_$PROJECTNAME/" -name "*DeathAlerts*" -exec bash -c 'mv "$1" "${1/DeathAlerts/$PROJECTNAME}"' _ {} \;
+unset PROJECTNAME
+```
 # Dependencies
 - Gothic 3 SDK by Georgeto https://github.com/georgeto/gothic3sdk
 - AsmJit https://github.com/asmjit/asmjit

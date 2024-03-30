@@ -32,5 +32,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Script_DeathAlerts.h" />
+    <ClInclude Include="..\shared\shared.hpp" />
   </ItemGroup>
 </Project>

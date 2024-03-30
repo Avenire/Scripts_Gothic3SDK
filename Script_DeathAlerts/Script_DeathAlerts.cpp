@@ -4,7 +4,7 @@
 #include "util/Hook.h"
 #include "util/ScriptUtil.h"
 #include "util/Util.h"
-#include "../shared/shared.h"
+#include "shared.hpp"
 #include "Script.h"
 
 gSScriptInit & GetScriptInit()
@@ -43,7 +43,6 @@ GEInt GE_STDCALL KillHook(gFScript const a_orignalFunc, gCScriptProcessingUnit* 
 	auto& player = Entity::GetPlayer();
 	auto experienceBeforeKill = player.PlayerMemory.XP;
 	auto aiMode = OtherEntity.Routine.AIMode;
-	auto enclaveStatus = OtherEntity.Enclave.Status;
 	auto wasDefeatedByPlayer = OtherEntity.NPC.DefeatedByPlayer;
 	auto species = OtherEntity.NPC.Species;
 	GEInt Result = a_orignalFunc(a_pSPU, a_pSelfEntity, a_pOtherEntity, a_iArgs);

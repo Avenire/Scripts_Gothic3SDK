@@ -1,4 +1,3 @@
-#include "shared.h"
 #include "util/Logging.h"
 #include "util/Hook.h"
 #include "util/ScriptUtil.h"
