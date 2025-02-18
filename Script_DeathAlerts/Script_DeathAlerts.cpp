@@ -40,9 +40,12 @@ GEBool GE_STDCALL IsEntityPickpocketableAndWasNotPickpocketedYet(Entity& npc) {
 GEInt GE_STDCALL KillHook(gFScript const a_orignalFunc, gCScriptProcessingUnit* a_pSPU, GELPVoid a_pSelfEntity, GELPVoid a_pOtherEntity, GEInt a_iArgs)
 {
 	INIT_SCRIPT();
+
 	auto& player = Entity::GetPlayer();
 	auto experienceBeforeKill = player.PlayerMemory.XP;
 	auto aiMode = OtherEntity.Routine.AIMode;
+	auto enclaveStatus = OtherEntity.Enclave.Status;
+	// Must check before proceeding with original func because if monsters kill each other, it sets this flag anyway...
 	auto wasDefeatedByPlayer = OtherEntity.NPC.DefeatedByPlayer;
 	auto species = OtherEntity.NPC.Species;
 	GEInt Result = a_orignalFunc(a_pSPU, a_pSelfEntity, a_pOtherEntity, a_iArgs);
@@ -53,16 +56,11 @@ GEInt GE_STDCALL KillHook(gFScript const a_orignalFunc, gCScriptProcessingUnit* 
 	// Game sets this flag as true no matter the actual killer.
 	auto experienceAfterKill = player.PlayerMemory.XP;
 	auto ripXP = !(
-		// Listing all cases I could think of where player gets XP.
-		// Case "Kill" script returns false.
 		!Result ||
-		// Player killed
 		SelfEntity.IsPlayer() ||
-		// Player was killed, lol
 		OtherEntity.IsPlayer() ||
+		wasDefeatedByPlayer ||
 		(killerValid && (
-			// Killed entity was already defeated before and XP granted
-			wasDefeatedByPlayer ||
 			// Player's team-mate killed
 			IsInSamePartyAsPlayer(SelfEntity) ||
 			// Summoned creature was killed
@@ -77,6 +75,7 @@ GEInt GE_STDCALL KillHook(gFScript const a_orignalFunc, gCScriptProcessingUnit* 
 			experienceBeforeKill != experienceAfterKill
 		)
 	);
+	
 	// todo: actual stringtable because "💎🤏 <name>" doesn't read as "failed to pickpocket" very obviously
 	if (IsEntityPickpocketableAndWasNotPickpocketedYet(OtherEntity)) {
 		gCSession::GetSession().GetGUIManager()->PrintGameMessage(

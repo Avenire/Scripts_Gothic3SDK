@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\gothic3sdk\source\Shared\util\AsmjitUtil.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gothic3sdk\source\Shared\util\Debug.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gothic3sdk\source\Shared\util\Hook.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gothic3sdk\source\Shared\util\Logging.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gothic3sdk\source\Shared\util\Memory.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gothic3sdk\source\Shared\util\Util.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="Script_GotoXP.cpp" />
+    <ClCompile Include="..\shared\shared.cpp" />
+    <ClCompile Include="..\gothic3sdk\source\Shared\util\ScriptUtil.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="util">
+      <UniqueIdentifier>{c81f962c-e09f-47e2-855b-3ab2a95a688a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Script_GotoXP.h" />
+  </ItemGroup>
+</Project>

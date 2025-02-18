@@ -11,6 +11,15 @@ Move the .dll into `<Gothic 3 Install Dir>\scripts` and hope it doesn't conflict
 I briefly tested this only with Community Patch (v1.75.14), CP Update Pack v1.04.11 and Parallel Universe Patch (v1.0.4). 
 No other mods were installed. Yes, I'm one of a few who actually like their Gothic vanilla.
 
+# Add new script
+```
+mkdir Script_New
+cp Script_NoRespawn/* Script_New/
+cd Script_New
+sed -i 's/Script_NoRespawn/Script_New/g' *
+for file in ./*Script_NoRespawn*; do mv "$file" "${file//Script_NoRespawn/Script_New}"; done
+```
+
 # Building
 - Get "Visual Studio Express 2013 for Windows Desktop" (toolset v120)
 - Gothic 3 SDK dependency is added via git submodules, remember to clone this repo with `--recurse-submodules --remote-submodules` flags or run the below:

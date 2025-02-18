@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2013 for Windows Desktop
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Asmjit", "gothic3sdk\source\Shared\Asmjit\Asmjit.vcxproj", "{32A1BE07-45F2-4B54-9CF0-992DFFC8D06A}"
 EndProject
@@ -26,6 +26,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{73FB5BBE-7851-4DF7-B884-420F13863183}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Script_DeathAlerts", "Script_DeathAlerts\Script_DeathAlerts.vcxproj", "{006F7F38-E91D-4A00-B940-E882B51B69ED}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Script_GotoXP", "Script_GotoXP\Script_GotoXP.vcxproj", "{D8FB4F26-BA1B-4850-B3CE-1E4D2D083507}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +67,10 @@ Global
 		{006F7F38-E91D-4A00-B940-E882B51B69ED}.Debug|Win32.Build.0 = Debug|Win32
 		{006F7F38-E91D-4A00-B940-E882B51B69ED}.Release|Win32.ActiveCfg = Release|Win32
 		{006F7F38-E91D-4A00-B940-E882B51B69ED}.Release|Win32.Build.0 = Release|Win32
+		{D8FB4F26-BA1B-4850-B3CE-1E4D2D083507}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D8FB4F26-BA1B-4850-B3CE-1E4D2D083507}.Debug|Win32.Build.0 = Debug|Win32
+		{D8FB4F26-BA1B-4850-B3CE-1E4D2D083507}.Release|Win32.ActiveCfg = Release|Win32
+		{D8FB4F26-BA1B-4850-B3CE-1E4D2D083507}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
